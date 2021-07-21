@@ -1,0 +1,24 @@
+name: Build and test Go
+on: [push, pull_request]
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source code
+        uses: actions/checkout@v2
+
+      - name: Setup Go
+        uses: actions/setup-go@v1
+        with:
+          go-version: 1.16
+
+      - name: Build
+        run: |
+          source .envrc
+          go build ./...
+
+      - name: Test
+        run: | 
+          source .envrc
+          go test -v ./...
